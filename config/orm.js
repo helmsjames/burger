@@ -1,48 +1,6 @@
 // Import MySQL connection.
 var connection = require("../config/connection.js");
 
-// create the methods that will execute the necessary MySQL commands in the controllers. These are the methods you will need to use in order to retrieve and store data in your database.
-// selectAll()
-// insertOne()
-// updateOne()
-// Then, Export the ORM object in `module.exports`.
-// orm.selectAll("burgers", "eaten", true)
-var orm = {
-    selectAll: function(tableInput, colToSearch, valOfCol) {
-      var queryString = "SELECT * FROM ?? WHERE ?? = ?";
-      connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      });
-    },
-    insertOne: function(whatToSelect, table, orderCol) {
-      var queryString = "SELECT ?? FROM ?? ORDER BY ?? DESC";
-      console.log(queryString);
-      connection.query(queryString, [whatToSelect, table, orderCol], function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      });
-    },
-    updateOne: function(tableOneCol, tableTwoForeignKey, tableOne, tableTwo) {
-      var queryString =
-        "SELECT ??, COUNT(??) AS count FROM ?? LEFT JOIN ?? ON ??.??= ??.id GROUP BY ?? ORDER BY count DESC LIMIT 1";
-  
-      connection.query(
-        queryString,
-        [tableOneCol, tableOneCol, tableOne, tableTwo, tableTwo, tableTwoForeignKey, tableOne, tableOneCol],
-        function(err, result) {
-          if (err) throw err;
-          console.log(result);
-        }
-      );
-    }
-  };
-  
-// Helper function for SQL syntax.
-// Let's say we want to pass 3 values into the mySQL query.
-// In order to write the query, we need 3 question marks.
-// The above helper function loops through and creates an array of question marks - ["?", "?", "?"] - and turns it into a string.
-// ["?", "?", "?"].toString() => "?,?,?";
 function printQuestionMarks(num) {
   var arr = [];
 
@@ -139,6 +97,49 @@ var orm = {
     });
   }
 };
+// create the methods that will execute the necessary MySQL commands in the controllers. These are the methods you will need to use in order to retrieve and store data in your database.
+// selectAll()
+// insertOne()
+// updateOne()
+// Then, Export the ORM object in `module.exports`.
+// orm.selectAll("burgers", "eaten", true)
+// var orm = {
+//     selectAll: function(tableInput, colToSearch, valOfCol) {
+//       var queryString = "SELECT * FROM ?? WHERE ?? = ?";
+//       connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
+//         if (err) throw err;
+//         console.log(result);
+//       });
+//     },
+//     insertOne: function(whatToSelect, table, orderCol) {
+//       var queryString = "SELECT ?? FROM ?? ORDER BY ?? DESC";
+//       console.log(queryString);
+//       connection.query(queryString, [whatToSelect, table, orderCol], function(err, result) {
+//         if (err) throw err;
+//         console.log(result);
+//       });
+//     },
+//     updateOne: function(tableOneCol, tableTwoForeignKey, tableOne, tableTwo) {
+//       var queryString =
+//         "SELECT ??, COUNT(??) AS count FROM ?? LEFT JOIN ?? ON ??.??= ??.id GROUP BY ?? ORDER BY count DESC LIMIT 1";
+  
+//       connection.query(
+//         queryString,
+//         [tableOneCol, tableOneCol, tableOne, tableTwo, tableTwo, tableTwoForeignKey, tableOne, tableOneCol],
+//         function(err, result) {
+//           if (err) throw err;
+//           console.log(result);
+//         }
+//       );
+//     }
+//   };
+  
+// Helper function for SQL syntax.
+// Let's say we want to pass 3 values into the mySQL query.
+// In order to write the query, we need 3 question marks.
+// The above helper function loops through and creates an array of question marks - ["?", "?", "?"] - and turns it into a string.
+// ["?", "?", "?"].toString() => "?,?,?";
+
 
 // Export the orm object for the model (cat.js).
 module.exports = orm;
